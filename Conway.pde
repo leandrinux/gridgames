@@ -9,11 +9,22 @@ final class Conway extends Grid {
     for (int j=0 ; j < boardWidth ; j++)
       for (int i=0 ; i < boardHeight ; i++)
         if (random(1)<0.5) {
-          cells[j][i] = byte(255);
+          cells[j][i] = int(random(100));
         } else {
           cells[j][i] = 0;
         }
-        
+  }
+
+  protected color colorForCellAt(int i, int j) {
+    int v = cells[j][i];
+    if (v == 0) {
+      return color(1, 1, 1, 0);
+    } else {
+      int r = (v & 0xFF000000) >> 24;
+      int g = (v & 0x00FF0000) >> 16;
+      int b = (v & 0x0000FF00) >> 8;
+      return color(r, g, b);
+    }
   }
     
   void draw() {
@@ -50,7 +61,8 @@ final class Conway extends Grid {
           case 2:
             break; 
           case 3:
-            c = 255;
+            if (c == 0)
+              c = int(random(0xFFFFFF));
             break;
           default:
             c = 0;
