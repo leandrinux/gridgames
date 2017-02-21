@@ -2,14 +2,14 @@ class Grid
 {
   protected int boardWidth        = 0;
   protected int boardHeight       = 0;
-  protected Boolean defaultValue  = false;
-  protected Boolean cells[][]; 
+  protected int defaultValue      = 0;
+  protected int cells[][]; 
   
   int   spacing         = 1;
   color backgroundColor = color(0x00,0x00,0x00, 0xFF);
   color foregroundColor = color(0x00,0x00,0xFF);
   
-  Grid(int width, int height, Boolean defaultValue) {
+  Grid(int width, int height, int defaultValue) {
     boardWidth = width;
     boardHeight = height;
     this.defaultValue = defaultValue;
@@ -17,16 +17,20 @@ class Grid
   }
   
   protected void initCells() {
-    cells = new Boolean[boardWidth][boardHeight];
+    cells = new int[boardWidth][boardHeight];
     for (int j=0 ; j < boardWidth ; j++)
       for (int i=0 ; i < boardHeight ; i++)
         cells[j][i] = defaultValue;
   }
   
   protected color colorForCellAt(int i, int j) {
-    float a = float(j) * 0xFF / float(boardWidth);
-    float b = float(i) * 0xFF / float(boardHeight);
-    return color(b, a, b);
+    if (cells[j][i] == 0) {
+      return color(1, 1, 1, 0);
+    } else {
+      float a = float(j) * 0xFF / float(boardWidth);
+      float b = float(i) * 0xFF / float(boardHeight);
+      return color(b, a, b);
+    }
   }
   
   void draw() {
@@ -48,13 +52,7 @@ class Grid
         int nx = int(x + cellWidth);
         int ny = int(y + cellHeight);
         
-        Boolean cell = cells[j][i];
-        if (cell) {
-          fill(colorForCellAt(i,j));
-        } else {
-          fill(color(0, 0, 0, 0));
-        }
-        
+        fill(colorForCellAt(i,j));        
         rect(x, y, nx, ny);
       }
     }

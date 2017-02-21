@@ -1,28 +1,28 @@
 final class Conway extends Grid {
   
   Conway(int width, int height) {
-    super(width, height, false);
+    super(width, height, 0);
   }
   
   protected void initCells() {
-    cells = new Boolean[boardWidth][boardHeight];
+    cells = new int[boardWidth][boardHeight];
     for (int j=0 ; j < boardWidth ; j++)
       for (int i=0 ; i < boardHeight ; i++)
-        cells[j][i] = random(1)<0.5;
+        if (random(1)<0.5) {
+          cells[j][i] = byte(255);
+        } else {
+          cells[j][i] = 0;
+        }
+        
   }
-  
-  protected color colorForCellAt(int i, int j) {
-    float a = float(i+j) * 0xFF / float(boardWidth+boardHeight);
-    return color(0, a, 0);
-  }
-  
+    
   void draw() {
     lifeCycle();
     super.draw();
   }
       
   private void lifeCycle() {
-    Boolean boardNext[][] = new Boolean[boardWidth][boardHeight];
+    int boardNext[][] = new int[boardWidth][boardHeight];
     
     for (int x = 0; x < cells.length; x++) {
       for (int y = 0; y < cells[x].length; y++) {
@@ -35,25 +35,25 @@ final class Conway extends Grid {
               x+dx < boardWidth &&
               y+dy > 0 &&
               y+dy < boardHeight &&
-              cells[x+dx][y+dy]
+              cells[x+dx][y+dy] != 0
             ) {
               n++;
             }
           }  
         }
-        Boolean c = cells[x][y];
+        int c = cells[x][y];
         switch (n) {
           case 0:
           case 1:
-            c = false;
+            c = 0;
             break;
           case 2:
             break; 
           case 3:
-            c = true;
+            c = 255;
             break;
           default:
-            c = false;
+            c = 0;
         }
         boardNext[x][y] = c;
       }
