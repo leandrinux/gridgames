@@ -1,7 +1,33 @@
 final class Conway extends Grid {
   
+  private PImage sprites[];
+  private PImage emptySprite;
+  
   Conway(int width, int height) {
     super(width, height, 0);
+    
+    // load sprites
+    PImage spriteSheet = loadImage("sheet_apple_16_indexed_128.png");
+    
+    int sW = 16;
+    int sH = 16;
+    int fromRow = 1;
+    int toRow = 5;
+    int fromColumn = 4;
+    int toColumn = 7;
+    
+    int size = (toRow - fromRow) * (toColumn - fromColumn);
+    sprites = new PImage[size];
+    int counter = 0;
+    for (int j=fromColumn ; j < toColumn ; j++)
+      for (int i=fromRow ; i < toRow ; i++) {
+        PImage image = createImage(sW, sH, ARGB);
+        image.copy(spriteSheet, j*sW, i*sH, sW, sH, 0, 0, sW, sH);
+        sprites[counter] = image;
+        counter++;
+      }
+    emptySprite = createImage(sW, sH, ARGB);
+    
   }
   
   protected void initCells() {
@@ -13,7 +39,16 @@ final class Conway extends Grid {
         } else {
           cells[j][i] = 0;
         }
-        
+  }
+
+  protected PImage imageForCellAt(int i, int j) {
+    int v = cells[j][i];
+    if (v != 0) {
+      int index = abs(v) % sprites.length;
+      return sprites[index];
+    } else {
+      return emptySprite;
+    }
   }
     
   void draw() {
@@ -50,7 +85,7 @@ final class Conway extends Grid {
           case 2:
             break; 
           case 3:
-            c = 255;
+            c = int(random(500));
             break;
           default:
             c = 0;
