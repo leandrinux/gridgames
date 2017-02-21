@@ -6,7 +6,7 @@ void setup()
   pixelDensity(2);
   frameRate(15);
   
-  conway = new Conway();
+  conway = new Conway(150,100);
 }
 
 void draw() 

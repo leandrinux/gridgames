@@ -1,7 +1,7 @@
 final class Conway extends Grid {
   
-  Conway() {
-    super(30, 20, false);
+  Conway(int width, int height) {
+    super(width, height, false);
   }
   
   protected void initCells() {
