@@ -9,7 +9,7 @@ enum ColorStyle {
 
 class Grid 
 {
-  PGraphics pg                    = createGraphics(width, height);
+  PGraphics pg;
   
   protected int boardWidth        = 0;
   protected int boardHeight       = 0;
@@ -23,10 +23,11 @@ class Grid
   color       foregroundColor = color(0x00,0x00,0xFF);
   color       cornerColors[];
   
-  Grid(int width, int height, int defaultValue) {    
-    boardWidth = width;
-    boardHeight = height;
+  Grid(int boardWidth, int boardHeight, int defaultValue) {    
+    this.boardWidth = boardWidth;
+    this.boardHeight = boardHeight;
     this.defaultValue = defaultValue;
+    pg = createGraphics(width, height);
     initCells();
   }
   

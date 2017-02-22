@@ -4,8 +4,8 @@ final class Conway extends Grid {
   
   private int cycleCount = 0;
   
-  Conway(int width, int height) {
-    super(width, height, 0);
+  Conway(int boardWidth, int boardHeight) {
+    super(boardWidth, boardHeight, 0);
   }
   
   protected void initCells() {

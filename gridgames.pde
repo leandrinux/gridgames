@@ -3,7 +3,6 @@ Conway conways[];
 void setup() 
 {
   size(960, 600, P2D);
-  //pixelDensity(2);
   smooth(10);
   frameRate(15);
 
@@ -43,8 +42,10 @@ void setup()
 void draw() 
 {
   clear();
-  for (Conway c : conways) {
+  for (int i=0;i<conways.length;i++) {
+    Conway c = conways[i];
     c.draw();
-    image(c.pg, 0, 0);
+    int offset = i * 5;
+    image(c.pg, offset, offset);
   }
 }
