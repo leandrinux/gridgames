@@ -60,8 +60,11 @@ class Grid
   void draw() {
     
     pg.beginDraw();
-
-    pg.background(backgroundColor);
+    
+    pg.clear();
+    if (alpha(backgroundColor) != 0) {
+      pg.background(backgroundColor);
+    }
     pg.noStroke();    
     pg.rectMode(CORNERS);
     pg.ellipseMode(CORNERS);
