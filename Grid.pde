@@ -1,3 +1,7 @@
+enum CellStyle {
+  Rectangle, Circle
+}
+
 class Grid 
 {
   protected int boardWidth        = 0;
@@ -5,9 +9,11 @@ class Grid
   protected int defaultValue      = 0;
   protected int cells[][]; 
   
-  int   spacing         = 1;
-  color backgroundColor = color(0x00,0x00,0x00, 0xFF);
-  color foregroundColor = color(0x00,0x00,0xFF);
+  int         spacing         = 1;
+  CellStyle   cellStyle       = CellStyle.Rectangle;
+  color       backgroundColor = color(0x00,0x00,0x00, 0xFF);
+  color       foregroundColor = color(0x00,0x00,0xFF);
+  
   
   Grid(int width, int height, int defaultValue) {
     boardWidth = width;
@@ -38,6 +44,7 @@ class Grid
     background(backgroundColor);
     noStroke();    
     rectMode(CORNERS);
+    ellipseMode(CORNERS);
 
     float totalHSpacing = (boardWidth - 1) * spacing;
     float totalVSpacing = (boardHeight - 1) * spacing;
@@ -52,8 +59,14 @@ class Grid
         int nx = int(x + cellWidth);
         int ny = int(y + cellHeight);
         
-        fill(colorForCellAt(i,j));        
-        rect(x, y, nx, ny);
+        fill(colorForCellAt(i,j));
+        
+        if (cellStyle == CellStyle.Rectangle) {
+          rect(x, y, nx, ny);
+        } else {
+          ellipse(x, y, nx, ny);
+        }
+        
       }
     }
 
