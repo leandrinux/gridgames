@@ -6,7 +6,6 @@ Conway conways[];
 void setup() 
 {
   size(960, 600, P2D);
-  noSmooth();
   frameRate(15);
 
   color[] colors = {  colorA, colorB, colorC };
