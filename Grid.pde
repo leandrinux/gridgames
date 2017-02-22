@@ -1,5 +1,5 @@
 enum CellStyle {
-  Rectangle, Circle
+  Rectangle, Circle, Hexagon
 }
 
 enum ColorStyle {
@@ -84,10 +84,23 @@ class Grid
         
         pg.fill(colorForCellAt(i,j));
         
-        if (cellStyle == CellStyle.Rectangle) {
-          pg.rect(x, y, nx, ny);
-        } else {
-          pg.ellipse(x, y, nx, ny);
+        switch(cellStyle) {
+          case Rectangle:
+            pg.rect(x, y, nx, ny);
+            break;
+          case Circle:
+            pg.ellipse(x, y, nx, ny);
+            break;
+          case Hexagon: {
+            x = int(x + cellWidth/2*j);
+            if (i % 2 == 1) {
+              x = int(x + (3*cellWidth/4));
+            }
+            y = int(y - i*cellHeight/2);
+            hexagon(x, y, cellWidth, cellHeight);
+            break;
+          }
+          
         }
         
       }
@@ -95,5 +108,17 @@ class Grid
     
     pg.endDraw();
   }
-  
+    
+  private void hexagon(float x1, float y1, float w, float h) {
+    float x2 = x1 + w;
+    float y2 = y1 + h;
+    pg.beginShape();
+    pg.vertex(x1 + 0    , y1 + h/2);
+    pg.vertex(x1 + w/4  , y1 + 0);
+    pg.vertex(x1 + 3*w/4, y1 + 0);
+    pg.vertex(x1 + w    , y1 + h/2);
+    pg.vertex(x1 + 3*w/4, y1 + h);
+    pg.vertex(x1 + w/4  , y1 + h);
+    pg.endShape(CLOSE);    
+  }
 }

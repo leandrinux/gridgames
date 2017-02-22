@@ -6,7 +6,7 @@ Conway conways[];
 void setup() 
 {
   size(960, 600, P2D);
-  smooth(10);
+  noSmooth();
   frameRate(15);
 
   color[] colors = {  colorA, colorB, colorC };
@@ -14,16 +14,16 @@ void setup()
   int c = colors.length;
   conways = new Conway[c];
   for (int i=0;i<c;i++) {
-    Conway conway = new Conway(95/2,60/2);
-    conway.cellStyle = CellStyle.Circle;
+    Conway conway = new Conway(47,30);
+    conway.cellStyle = CellStyle.Hexagon;
     conway.mutationLevel = 4;
     conway.backgroundColor = color(0,0,0,0);
     conway.foregroundColor = colors[i];
     conway.colorStyle = ColorStyle.Solid;
     conways[i] = conway;
   }
-  
 }
+
 
 void draw() 
 {
