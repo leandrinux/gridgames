@@ -2,6 +2,11 @@ enum CellStyle {
   Rectangle, Circle
 }
 
+enum ColorStyle {
+  Solid,
+  Gradient
+}
+
 class Grid 
 {
   protected int boardWidth        = 0;
@@ -11,9 +16,10 @@ class Grid
   
   int         spacing         = 1;
   CellStyle   cellStyle       = CellStyle.Rectangle;
+  ColorStyle  colorStyle      = ColorStyle.Solid;
   color       backgroundColor = color(0x00,0x00,0x00, 0xFF);
   color       foregroundColor = color(0x00,0x00,0xFF);
-  
+  color       cornerColors[];
   
   Grid(int width, int height, int defaultValue) {
     boardWidth = width;
@@ -33,9 +39,18 @@ class Grid
     if (cells[j][i] == 0) {
       return color(1, 1, 1, 0);
     } else {
-      float a = float(j) * 0xFF / float(boardWidth);
-      float b = float(i) * 0xFF / float(boardHeight);
-      return color(b, a, b);
+      if (colorStyle == ColorStyle.Solid) {
+        return foregroundColor;
+      } else {
+        color A = cornerColors[0];
+        color B = cornerColors[1];
+        color C = cornerColors[2];
+        color D = cornerColors[3];
+        float a = boardWidth;
+        //float b = boardHeight;
+        float hueE = ( hue(B)*i/a + hue(A)*(1-i/a) ) * (j/a)  +  ( hue(D)*i/a + hue(C)*(1-i/a) ) * (1-j/a);
+        return color(hueE, 50, 100);
+      }
     }
   }
   
@@ -59,6 +74,12 @@ class Grid
         int nx = int(x + cellWidth);
         int ny = int(y + cellHeight);
         
+        
+        if (colorStyle == ColorStyle.Solid)
+          colorMode(RGB);
+        else
+          colorMode(HSB, 100);
+          
         fill(colorForCellAt(i,j));
         
         if (cellStyle == CellStyle.Rectangle) {
