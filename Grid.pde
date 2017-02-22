@@ -50,7 +50,6 @@ class Grid
         color C = cornerColors[2];
         color D = cornerColors[3];
         float a = boardWidth;
-        //float b = boardHeight;
         float hueE = ( hue(B)*i/a + hue(A)*(1-i/a) ) * (j/a)  +  ( hue(D)*i/a + hue(C)*(1-i/a) ) * (1-j/a);
         colorMode(HSB, 100);
         return color(hueE, 50, 100);

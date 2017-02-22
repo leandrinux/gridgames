@@ -1,3 +1,6 @@
+color colorA = color(0x00,0x63,0xFF,0xFA);
+color colorB = color(0x46,0xEC,0xC8,0xFA);
+color colorC = color(0xFE,0xFE,0xFE,0xFA);
 Conway conways[];
 
 void setup() 
@@ -6,34 +9,17 @@ void setup()
   smooth(10);
   frameRate(15);
 
-  color[] colors = { 
-    color(0x00,0x63,0xFF,0xFA), 
-    color(0x46,0xEC,0xC8,0xFA), 
-    color(0xFE,0xFE,0xFE,0xFA) 
-  };
+  color[] colors = {  colorA, colorB, colorC };
   
   int c = colors.length;
   conways = new Conway[c];
   for (int i=0;i<c;i++) {
-
-    Conway conway = new Conway(95,60);
+    Conway conway = new Conway(95/2,60/2);
     conway.cellStyle = CellStyle.Circle;
     conway.mutationLevel = 4;
-
-    /*
-    color colors[] = new color[4];
-    colors[0] = color(0xff,0,0,0xBA);
-    colors[1] = color(0,0xff,0,0xBA);
-    colors[2] = color(0,0,0xff,0xBA);
-    colors[3] = color(0xff,0xff,0xff,0xBA);
-    conway.cornerColors = colors;
-    conway.colorStyle = ColorStyle.Gradient;
-    */
-    
     conway.backgroundColor = color(0,0,0,0);
     conway.foregroundColor = colors[i];
     conway.colorStyle = ColorStyle.Solid;
-
     conways[i] = conway;
   }
   
@@ -41,7 +27,7 @@ void setup()
 
 void draw() 
 {
-  clear();
+  background(0);
   for (int i=0;i<conways.length;i++) {
     Conway c = conways[i];
     c.draw();
