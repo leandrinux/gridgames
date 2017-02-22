@@ -17,7 +17,6 @@ final class Conway extends Grid {
         } else {
           cells[j][i] = 0;
         }
-        
   }
     
   void draw() {
@@ -25,15 +24,7 @@ final class Conway extends Grid {
     lifeCycle();
     super.draw();
   }
-  
-  protected color colorForCellAt(int i, int j) {
-    if (cells[j][i] == 0) {
-      return color(1, 1, 1, 0);
-    } else {
-      return foregroundColor;
-    }
-  }
-  
+    
   private void mutate() {
     int mutations = int(random(mutationLevel * 10))+10;
     if (cycleCount % 50 == 0) {
