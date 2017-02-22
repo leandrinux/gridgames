@@ -1,5 +1,7 @@
 final class Conway extends Grid {
   
+  int mutationLevel = 5;
+  
   private int cycleCount = 0;
   
   Conway(int width, int height) {
@@ -24,13 +26,26 @@ final class Conway extends Grid {
     super.draw();
   }
   
+  protected color colorForCellAt(int i, int j) {
+    if (cells[j][i] == 0) {
+      return color(1, 1, 1, 0);
+    } else {
+      return foregroundColor;
+    }
+  }
+  
   private void mutate() {
-    int mutations = int(random(50))+10;
+    int mutations = int(random(mutationLevel * 10))+10;
     if (cycleCount % 50 == 0) {
       for (int m=0 ; m < mutations ; m++) {
-        int j = int(random(boardWidth));
-        int i = int(random(boardHeight));
+        int margin = 3;
+        int j = margin + int(random(boardWidth - margin*2));
+        int i = margin + int(random(boardHeight - margin*2));
         cells[j][i] = 255;
+        cells[j+1][i+1] = 255;
+        cells[j+2][i+1] = 255;
+        cells[j+2][i] = 255;
+        cells[j+2][i-1] = 255;
       }
     }
   }
