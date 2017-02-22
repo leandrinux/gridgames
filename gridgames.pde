@@ -3,7 +3,7 @@ Conway conway;
 void setup() 
 {
   size(960, 600, P2D);
-  pixelDensity(2);
+  //pixelDensity(2);
   smooth(10);
   frameRate(15);
   
@@ -25,4 +25,5 @@ void setup()
 void draw() 
 {
   conway.draw();
+  image(conway.pg, 0, 0);
 }

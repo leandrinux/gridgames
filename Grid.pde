@@ -9,6 +9,8 @@ enum ColorStyle {
 
 class Grid 
 {
+  PGraphics pg                    = createGraphics(width, height);
+  
   protected int boardWidth        = 0;
   protected int boardHeight       = 0;
   protected int defaultValue      = 0;
@@ -21,7 +23,7 @@ class Grid
   color       foregroundColor = color(0x00,0x00,0xFF);
   color       cornerColors[];
   
-  Grid(int width, int height, int defaultValue) {
+  Grid(int width, int height, int defaultValue) {    
     boardWidth = width;
     boardHeight = height;
     this.defaultValue = defaultValue;
@@ -49,6 +51,7 @@ class Grid
         float a = boardWidth;
         //float b = boardHeight;
         float hueE = ( hue(B)*i/a + hue(A)*(1-i/a) ) * (j/a)  +  ( hue(D)*i/a + hue(C)*(1-i/a) ) * (1-j/a);
+        colorMode(HSB, 100);
         return color(hueE, 50, 100);
       }
     }
@@ -56,10 +59,12 @@ class Grid
   
   void draw() {
     
-    background(backgroundColor);
-    noStroke();    
-    rectMode(CORNERS);
-    ellipseMode(CORNERS);
+    pg.beginDraw();
+
+    pg.background(backgroundColor);
+    pg.noStroke();    
+    pg.rectMode(CORNERS);
+    pg.ellipseMode(CORNERS);
 
     float totalHSpacing = (boardWidth - 1) * spacing;
     float totalVSpacing = (boardHeight - 1) * spacing;
@@ -74,23 +79,18 @@ class Grid
         int nx = int(x + cellWidth);
         int ny = int(y + cellHeight);
         
-        
-        if (colorStyle == ColorStyle.Solid)
-          colorMode(RGB);
-        else
-          colorMode(HSB, 100);
-          
-        fill(colorForCellAt(i,j));
+        pg.fill(colorForCellAt(i,j));
         
         if (cellStyle == CellStyle.Rectangle) {
-          rect(x, y, nx, ny);
+          pg.rect(x, y, nx, ny);
         } else {
-          ellipse(x, y, nx, ny);
+          pg.ellipse(x, y, nx, ny);
         }
         
       }
     }
-
+    
+    pg.endDraw();
   }
   
 }
