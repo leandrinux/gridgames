@@ -1,5 +1,5 @@
 enum CellStyle {
-  Rectangle, Circle, Hexagon
+  Rectangle, Circle, Hexagon, CompressedHexagon
 }
 
 enum ColorStyle {
@@ -85,18 +85,24 @@ class Grid
         pg.fill(colorForCellAt(i,j));
         
         switch(cellStyle) {
+          
           case Rectangle:
             pg.rect(x, y, nx, ny);
             break;
+            
           case Circle:
             pg.ellipse(x, y, nx, ny);
             break;
-          case Hexagon: {
+          
+          case Hexagon:
+          case CompressedHexagon: 
+          {
             x = int(x + cellWidth/2*j);
             if (i % 2 == 1) {
               x = int(x + (3*cellWidth/4));
             }
-            y = int(y - i*cellHeight/2);
+            if (cellStyle == CellStyle.CompressedHexagon) 
+              y = int(y - i*cellHeight/2);
             hexagon(x, y, cellWidth, cellHeight);
             break;
           }
