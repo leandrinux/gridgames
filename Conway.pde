@@ -1,5 +1,7 @@
 final class Conway extends Grid {
   
+  private int cycleCount = 0;
+  
   Conway(int width, int height) {
     super(width, height, 0);
   }
@@ -9,7 +11,7 @@ final class Conway extends Grid {
     for (int j=0 ; j < boardWidth ; j++)
       for (int i=0 ; i < boardHeight ; i++)
         if (random(1)<0.5) {
-          cells[j][i] = byte(255);
+          cells[j][i] = 255;
         } else {
           cells[j][i] = 0;
         }
@@ -17,8 +19,20 @@ final class Conway extends Grid {
   }
     
   void draw() {
+    mutate();
     lifeCycle();
     super.draw();
+  }
+  
+  private void mutate() {
+    int mutations = int(random(50))+10;
+    if (cycleCount % 50 == 0) {
+      for (int m=0 ; m < mutations ; m++) {
+        int j = int(random(boardWidth));
+        int i = int(random(boardHeight));
+        cells[j][i] = 255;
+      }
+    }
   }
       
   private void lifeCycle() {
@@ -59,7 +73,8 @@ final class Conway extends Grid {
       }
     }
     
-    cells = boardNext;      
+    cells = boardNext;
+    cycleCount++;
   }
 
 }
