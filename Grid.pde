@@ -1,5 +1,5 @@
 enum CellStyle {
-  Rectangle, Circle, Hexagon, CompressedHexagon, Triangle
+  Rectangle, Circle, Hexagon, CompressedHexagon, TriangleUp, TriangleDown 
 }
 
 enum ColorStyle {
@@ -107,12 +107,14 @@ class Grid
             break;
           }
 
-          case Triangle:
-          {
-            triangle(x, y, nx, ny);
+          case TriangleUp:
+            triangleUp(x, y, nx, ny);
             break;
-          }
-          
+
+          case TriangleDown:
+            triangleDown(x, y, nx, ny);
+            break;
+
         }
         
       }
@@ -134,11 +136,19 @@ class Grid
     pg.endShape(CLOSE);    
   }
 
-  private void triangle(float x1, float y1, float x2, float y2) {
+  private void triangleUp(float x1, float y1, float x2, float y2) {
     pg.beginShape();
     pg.vertex(x1  , y2);
     pg.vertex(x1+(x2-x1)/2, y1);
     pg.vertex(x2, y2);
+    pg.endShape(CLOSE);    
+  }
+
+  private void triangleDown(float x1, float y1, float x2, float y2) {
+    pg.beginShape();
+    pg.vertex(x1  , y1);
+    pg.vertex(x1+(x2-x1)/2, y2);
+    pg.vertex(x2, y1);
     pg.endShape(CLOSE);    
   }
 
