@@ -15,7 +15,8 @@ class Grid
   protected int boardHeight       = 0;
   protected int defaultValue      = 0;
   protected int cells[][]; 
-  
+
+  int cycleCount              = 0;
   int         spacing         = 1;
   CellStyle   cellStyle       = CellStyle.Rectangle;
   ColorStyle  colorStyle      = ColorStyle.Solid;
@@ -23,11 +24,11 @@ class Grid
   color       foregroundColor = color(0x00,0x00,0xFF);
   color       cornerColors[];
   
-  Grid(int boardWidth, int boardHeight, int defaultValue) {    
+  Grid(int imageWidth, int imageHeight, int boardWidth, int boardHeight, int defaultValue) {    
     this.boardWidth = boardWidth;
     this.boardHeight = boardHeight;
     this.defaultValue = defaultValue;
-    pg = createGraphics(width, height);
+    pg = createGraphics(imageWidth, imageHeight);
     initCells();
   }
   
@@ -71,8 +72,8 @@ class Grid
 
     float totalHSpacing = (boardWidth - 1) * spacing;
     float totalVSpacing = (boardHeight - 1) * spacing;
-    float cellWidth = (width - totalHSpacing) / boardWidth;
-    float cellHeight = (height - totalVSpacing) / boardHeight;
+    float cellWidth = (pg.width - totalHSpacing) / boardWidth;
+    float cellHeight = (pg.height - totalVSpacing) / boardHeight;
         
     for (int j=0 ; j < boardWidth ; j++) {
       for (int i=0 ; i < boardHeight ; i++) {
@@ -113,6 +114,7 @@ class Grid
     }
     
     pg.endDraw();
+    cycleCount++;    
   }
     
   private void hexagon(float x1, float y1, float w, float h) {

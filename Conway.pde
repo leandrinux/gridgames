@@ -1,11 +1,9 @@
 final class Conway extends Grid {
   
   int mutationLevel = 5;
-  
-  private int cycleCount = 0;
-  
-  Conway(int boardWidth, int boardHeight) {
-    super(boardWidth, boardHeight, 0);
+   
+  Conway(int imageWidth, int imageHeight, int boardWidth, int boardHeight) {
+    super(imageWidth, imageHeight, boardWidth, boardHeight, 0);
   }
   
   protected void initCells() {
@@ -80,7 +78,6 @@ final class Conway extends Grid {
     }
     
     cells = boardNext;
-    cycleCount++;
   }
 
 }
