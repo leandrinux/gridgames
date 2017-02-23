@@ -20,7 +20,7 @@ void setup()
   conways = new Conway[c];
   for (int i=0;i<c;i++) {
     Conway conway = new Conway(47,30);
-    conway.cellStyle = CellStyle.Rectangle;
+    conway.cellStyle = CellStyle.Triangle;
     conway.mutationLevel = 7;
     conway.backgroundColor = color(0,0,0,0);
     conway.foregroundColor = colors[i];
