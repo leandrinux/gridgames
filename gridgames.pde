@@ -1,17 +1,18 @@
-color colorA = color(0x00, 0x63, 0xFF, 0xFA);
-color colorB = color(0x46, 0xEC, 0xC8, 0xFA);
-color colorC = color(0xFE, 0xFE, 0xFE, 0xFA);
-color colorD = color(0x00, 0x3A, 0x94, 0xFF);
+color colorA = color(0x00, 0x63, 0xFF, 0xCA);
+color colorB = color(0x46, 0xEC, 0xC8, 0xCA);
+color colorC = color(0xFE, 0xFE, 0xFE, 0xCA);
+
+color colorD = color(0x1ebee6, 0xCA);
 Conway conways[];
 
-PImage mask;
+// PImage mask;
 
 void setup() 
 {
   size(960, 600, P2D);
   frameRate(15);
 
-  mask = loadImage("LateralLogo.png");
+  // mask = loadImage("LateralLogo.png");
 
   color[] colors = {  colorA, colorB, colorC };
   
@@ -19,7 +20,7 @@ void setup()
   conways = new Conway[c];
   for (int i=0;i<c;i++) {
     Conway conway = new Conway(47,30);
-    conway.cellStyle = CellStyle.Hexagon;
+    conway.cellStyle = CellStyle.Rectangle;
     conway.mutationLevel = 7;
     conway.backgroundColor = color(0,0,0,0);
     conway.foregroundColor = colors[i];
@@ -42,9 +43,9 @@ void draw()
     int offset = i * 5;
     int w = c.pg.width;
     int h = c.pg.height;
-    buffer.blend(c.pg, 0, 0, w, h, offset, offset, w, h, BLEND);
+    buffer.blend(c.pg, 0, 0, w, h, offset, offset, w, h, ADD);
   }
-  buffer.mask(mask);
+  // buffer.mask(mask);
   buffer.endDraw();
   image(buffer, 0, 0);
   
